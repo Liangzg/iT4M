@@ -45,15 +45,15 @@ public class MyT4MView
         GUILayout.FlexibleSpace();
         
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Clean iT4M ", GUILayout.Height(20)))
+        if (GUILayout.Button("Gen Terrain ", GUILayout.Height(20)))
         {
-            T4MCache.T4MMaster = false;
-            T4MMainObj[] prev = GameObject.FindObjectsOfType<T4MMainObj>();
-            foreach (T4MMainObj go in prev)
+            T4MMainObj prev = CurrentSelect.GetComponent<T4MMainObj>();
+            if (prev != null)
             {
-                GameObject.DestroyImmediate(go);
+                GameObject cloneObj = GameObject.Instantiate(CurrentSelect.gameObject);
+                GameObject.DestroyImmediate(cloneObj.GetComponent<T4MMainObj>());
+                EditorUtility.DisplayDialog("Gen Terrain ", "Gen Terrain Success !", "OK");
             }
-            EditorUtility.DisplayDialog("Scene Cleaned", "Remove All T4MMainObj !", "OK");
         }
 
         if (GUILayout.Button("Clean MeshRenderers", GUILayout.Height(20)))
