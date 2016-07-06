@@ -72,6 +72,11 @@ public class T4MMainEditor : EditorWindow {
         MenuIcon[5] = new GUIContent(AssetDatabase.LoadAssetAtPath(T4MConfig.T4MEditorFolder + "Icons/lod.png", typeof(Texture2D)) as Texture);
         MenuIcon[6] = new GUIContent(AssetDatabase.LoadAssetAtPath(T4MConfig.T4MEditorFolder + "Icons/bill.png", typeof(Texture2D)) as Texture);
 
+        T4MUtil.AddLayer("CloseView" , 27);
+        T4MUtil.AddLayer("NormalView", 28);
+        T4MUtil.AddLayer("FarView", 29);
+        T4MUtil.AddLayer("BackgroundView", 30);
+        T4MUtil.AddLayer("T4MObj", 31);
     }
 
     void OnInspectorUpdate() 
