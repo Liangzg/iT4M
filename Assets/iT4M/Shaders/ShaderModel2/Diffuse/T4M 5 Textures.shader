@@ -17,7 +17,8 @@ SubShader {
 				   "RenderType" = "Opaque"
 	}
 CGPROGRAM
-#pragma surface surf Lambert nolightmap
+#pragma target 4.0
+#pragma surface surf Lambert
 #pragma exclude_renderers gles xbox360 ps3 flash
 
 

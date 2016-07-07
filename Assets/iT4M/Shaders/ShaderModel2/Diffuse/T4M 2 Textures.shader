@@ -12,7 +12,7 @@ SubShader {
    "RenderType" = "Opaque"
 	}
 CGPROGRAM
-#pragma surface surf Lambert nolightmap
+#pragma surface surf Lambert
 #pragma exclude_renderers xbox360 ps3
 struct Input {
 	float2 uv_Control : TEXCOORD0;

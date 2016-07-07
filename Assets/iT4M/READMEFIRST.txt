@@ -15,6 +15,9 @@ VIDEO TUTORIAL FOR T4M BLACK EDITION (same than SC)
 http://www.youtube.com/watch?v=owz_8P2wpZE
 
 iT4M
+v0.0.3 2016-07-07
+1.调整ShaderModel2 Diffuse目录内Shader支持lightmap
+
 v0.0.2 2016-07-06
 1.添加PlantPreview.shader , BrushPreview.shader 
 2.修改T4MExtendsSC和PainterMenuView对XXXPreview.shader的引用
