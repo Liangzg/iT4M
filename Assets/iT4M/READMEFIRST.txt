@@ -17,6 +17,7 @@ http://www.youtube.com/watch?v=owz_8P2wpZE
 iT4M
 v0.0.3 2016-07-07
 1.调整ShaderModel2 Diffuse目录内Shader支持lightmap
+2.生成地形副本后，关闭原目标地形,并自动保存场景资源
 
 v0.0.2 2016-07-06
 1.添加PlantPreview.shader , BrushPreview.shader 

@@ -75,7 +75,7 @@ public class T4MMainEditor : EditorWindow {
         T4MUtil.AddLayer("CloseView" , 27);
         T4MUtil.AddLayer("NormalView", 28);
         T4MUtil.AddLayer("FarView", 29);
-        T4MUtil.AddLayer("BackgroundView", 30);
+        T4MUtil.AddLayer("Background", 30);
         T4MUtil.AddLayer("T4MObj", 31);
     }
 

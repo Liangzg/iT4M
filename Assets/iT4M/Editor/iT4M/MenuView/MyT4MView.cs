@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Collections;
 using System.IO;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 
 /// <summary>
 /// 描述：自定义T4M设置
@@ -52,6 +53,10 @@ public class MyT4MView
             {
                 GameObject cloneObj = GameObject.Instantiate(CurrentSelect.gameObject);
                 GameObject.DestroyImmediate(cloneObj.GetComponent<T4MMainObj>());
+
+                CurrentSelect.gameObject.SetActive(false);
+
+                EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
                 EditorUtility.DisplayDialog("Gen Terrain ", "Gen Terrain Success !", "OK");
             }
         }
