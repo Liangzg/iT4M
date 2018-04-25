@@ -720,7 +720,7 @@ public class MyT4MView
         AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 
         TextureImporter TextureI = AssetImporter.GetAtPath(path) as TextureImporter;
-        TextureI.textureFormat = TextureImporterFormat.ARGB32;
+        TextureI.textureCompression = TextureImporterCompression.Uncompressed;
         TextureI.isReadable = true;
         TextureI.anisoLevel = 9;
         TextureI.mipmapEnabled = false;

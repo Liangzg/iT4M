@@ -125,17 +125,13 @@ public class ConverterMenuView
                     Texture imgAvoid = AssetDatabase.LoadAssetAtPath<Texture>(T4MConfig.T4MEditorFolder + "Img/avoid.png");
                     Texture imgKO = AssetDatabase.LoadAssetAtPath<Texture>(T4MConfig.T4MEditorFolder + "Img/ko.png");
                     
-                    platformItemGUI("iPhone 3GS", 15000, 30000, imgOK, imgAvoid, imgKO);
-
-                    platformItemGUI("iPad 1", 15000, 30000, imgOK, imgAvoid, imgKO);
-
-                    platformItemGUI("iPhone 4", 20000, 40000, imgOK, imgAvoid, imgKO);
+                    platformItemGUI("iPhone 6", 40000, 55000, imgOK, imgAvoid, imgKO);
 
                     platformItemGUI("Tegra 2", 20000, 40000, imgOK, imgAvoid, imgKO);
 
                     platformItemGUI("iPad 2", 25000, 45000, imgOK, imgAvoid, imgKO);
 
-                    platformItemGUI("iPhone 4S", 25000, 45000, imgOK, imgAvoid, imgKO);
+                    platformItemGUI("iPhone 6S", 45000, 60000, imgOK, imgAvoid, imgKO);
 
                     platformItemGUI("Flash" , 45000 , 60000 , imgOK , imgAvoid , imgKO);
 
@@ -362,14 +358,14 @@ public class ConverterMenuView
         File.WriteAllBytes(path, data);
         AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
         var TextureIm = AssetImporter.GetAtPath(path) as TextureImporter;
-        TextureIm.textureFormat = TextureImporterFormat.ARGB32;
+        TextureIm.textureCompression = TextureImporterCompression.Uncompressed;
         TextureIm.isReadable = true;
         TextureIm.anisoLevel = 9;
         TextureIm.mipmapEnabled = false;
         TextureIm.wrapMode = TextureWrapMode.Clamp;
         AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
-        Material Tmaterial = new Material(Shader.Find("iT4MShaders/ShaderModel2/Diffuse/T4M 4 Textures"));
-        AssetDatabase.CreateAsset(Tmaterial, T4MConfig.T4MPrefabFolder + "Terrains/Material/" + FinalExpName + ".mat");
+        Material tempMat = new Material(Shader.Find("iT4MShaders/ShaderModel2/Diffuse/T4M 4 Textures"));
+        AssetDatabase.CreateAsset(tempMat, T4MConfig.T4MPrefabFolder + "Terrains/Material/" + FinalExpName + ".mat");
         AssetDatabase.ImportAsset(T4MConfig.T4MPrefabFolder + "Terrains/Material/" + FinalExpName + ".mat", ImportAssetOptions.ForceUpdate);
         
         Texture FinalMaterial = (Texture)AssetDatabase.LoadAssetAtPath(path, typeof(Texture));
@@ -389,7 +385,7 @@ public class ConverterMenuView
 
                 T4MOBJPART[i].gameObject.isStatic = true;
 
-                T4MOBJPART[i].material = Tmaterial;
+                T4MOBJPART[i].material = tempMat;
                 T4MOBJPART[i].gameObject.layer = 30;
                 T4MOBJPART[i].gameObject.AddComponent<T4MPart>();
                 newMainObjT4MMain.T4MMesh = T4MOBJPART[0].GetComponent<MeshFilter>();
@@ -401,11 +397,11 @@ public class ConverterMenuView
                 GameObject.DestroyImmediate(CurrentSelect.GetComponent<Collider>());
 
             CurrentSelect.gameObject.AddComponent<MeshCollider>();
-            CurrentSelect.gameObject.GetComponent<Renderer>().material = newMainObjT4MMain.T4MMaterial = Tmaterial;
+            CurrentSelect.gameObject.GetComponent<Renderer>().material = newMainObjT4MMain.T4MMaterial = tempMat;
             newMainObjT4MMain.T4MMesh = CurrentSelect.gameObject.GetComponent<MeshFilter>();
 
         }
-        newMainObjT4MMain.T4MMaterial = Tmaterial;
+        newMainObjT4MMain.T4MMaterial = tempMat;
         newMainObjT4MMain.T4MMaterial.SetTexture("_Control", FinalMaterial);
         CurrentSelect.gameObject.isStatic = true;
         CurrentSelect.gameObject.layer = 30;
@@ -434,11 +430,11 @@ public class ConverterMenuView
 
             GameObject.DestroyImmediate(CurrentSelect.gameObject);
             Selection.activeTransform = forRotate.transform;
-            EditorUtility.SetSelectedWireframeHidden(forRotate.GetComponent<Renderer>(), true);
+            EditorUtility.SetSelectedRenderState(forRotate.GetComponent<Renderer>() , EditorSelectedRenderState.Hidden);
         }
         else {
             Selection.activeTransform = CurrentSelect.transform;
-            EditorUtility.SetSelectedWireframeHidden(CurrentSelect.GetComponent<Renderer>(), true);
+            EditorUtility.SetSelectedRenderState(CurrentSelect.GetComponent<Renderer>(), EditorSelectedRenderState.Hidden);
         }
 
         CurrentSelect.gameObject.name = FinalExpName;
@@ -611,7 +607,7 @@ public class ConverterMenuView
 
         //Modification de la Texture 
         TextureImporter TextureI = AssetImporter.GetAtPath(path) as TextureImporter;
-        TextureI.textureFormat = TextureImporterFormat.ARGB32;
+        TextureI.textureCompression = TextureImporterCompression.Uncompressed;
         TextureI.isReadable = true;
         TextureI.anisoLevel = 9;
         TextureI.mipmapEnabled = false;
@@ -727,7 +723,7 @@ public class ConverterMenuView
 
         CurrentSelect.GetComponent<Terrain>().enabled = false;
 
-        EditorUtility.SetSelectedWireframeHidden(T4MCache.Child.GetComponent<Renderer>(), true);
+        EditorUtility.SetSelectedRenderState(T4MCache.Child.GetComponent<Renderer>() , EditorSelectedRenderState.Hidden);
 
         T4MCache.UnityTerrain = CurrentSelect.gameObject;
 
@@ -739,9 +735,11 @@ public class ConverterMenuView
         //Modification des attribut du mesh avant de le pr茅fabriquer
         ModelImporter OBJI = ModelImporter.GetAtPath(T4MConfig.T4MPrefabFolder + "Terrains/Meshes/" + FinalExpName + ".obj") as ModelImporter;
         OBJI.globalScale = 1;
-        OBJI.splitTangentsAcrossSeams = true;
-        OBJI.normalImportMode = ModelImporterTangentSpaceMode.Calculate;
-        OBJI.tangentImportMode = ModelImporterTangentSpaceMode.Calculate;
+        //        OBJI.splitTangentsAcrossSeams = true;
+        //        OBJI.normalImportMode = ModelImporterTangentSpaceMode.Calculate;
+        OBJI.importNormals = ModelImporterNormals.Calculate;
+        //        OBJI.tangentImportMode = ModelImporterTangentSpaceMode.Calculate;
+        OBJI.importTangents = ModelImporterTangents.CalculateLegacy;
         OBJI.generateAnimations = ModelImporterGenerateAnimations.None;
         OBJI.meshCompression = ModelImporterMeshCompression.Off;
         OBJI.normalSmoothingAngle = 180f;

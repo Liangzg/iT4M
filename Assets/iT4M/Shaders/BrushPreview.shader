@@ -1,4 +1,8 @@
-﻿Shader "Hidden/iT4MShaders/BrushPreview"
+﻿// Upgrade NOTE: replaced '_Projector' with 'unity_Projector'
+// Upgrade NOTE: replaced '_ProjectorClip' with 'unity_ProjectorClip'
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Hidden/iT4MShaders/BrushPreview"
 {
 	Properties{
 		_Transp("Transparency", Range(0,1)) = 1
@@ -22,8 +26,8 @@
 				float2 texcoord : TEXCOORD0;
 			};
 
-			float4x4 _Projector;
-			float4x4 _ProjectorClip;
+			float4x4 unity_Projector;
+			float4x4 unity_ProjectorClip;
 			struct v2f {
 				float4 vertex : SV_POSITION;
 				float4 texcoord : TEXCOORD0;
@@ -36,8 +40,8 @@
 			v2f vert(appdata_t v)
 			{
 				v2f o;
-				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
-				o.texcoord = mul(_Projector, v.vertex);
+				o.vertex = UnityObjectToClipPos(v.vertex);
+				o.texcoord = mul(unity_Projector, v.vertex);
 				return o;
 			}
 

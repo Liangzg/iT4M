@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 // Upgrade NOTE: commented out 'float4 unity_LightmapST', a built-in variable
 
 // Upgrade NOTE: commented out 'float4 unity_LightmapST', a built-in variable
@@ -53,7 +55,7 @@ SubShader {
 		v2f vert (appdata_full  v)
 		{
 			v2f o;
-			o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
+			o.pos = UnityObjectToClipPos (v.vertex);
 			o.uv[0] = TRANSFORM_TEX (v.texcoord, _Splat0);
 			o.uv[1] = TRANSFORM_TEX (v.texcoord, _Splat1);
 			o.uv[2] = TRANSFORM_TEX (v.texcoord, _Splat2);

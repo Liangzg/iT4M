@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
 Shader "iT4MShaders/ShaderModel2/Diffuse/T4M World Projection Shader" {
     Properties {
         _UpSide ("Up/Side Fighting", Float) = 2.5
@@ -27,8 +29,8 @@ Shader "iT4MShaders/ShaderModel2/Diffuse/T4M World Projection Shader" {
 
 	        void vert (inout appdata_full v, out Input o) {
                  UNITY_INITIALIZE_OUTPUT(Input,o);
-				 o.worldNormal = mul(_Object2World, float4(v.normal, 0.0f)).xyz;
-	 	         o.worldPos = mul(_Object2World, v.vertex);
+				 o.worldNormal = mul(unity_ObjectToWorld, float4(v.normal, 0.0f)).xyz;
+	 	         o.worldPos = mul(unity_ObjectToWorld, v.vertex);
 	        }
 
 	        void surf (Input IN, inout SurfaceOutput o) {

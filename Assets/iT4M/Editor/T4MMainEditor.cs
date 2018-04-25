@@ -1,4 +1,4 @@
-//Update SC
+Ôªø//Update SC
 using UnityEngine;
 using UnityEditor;
 using System;
@@ -6,7 +6,7 @@ using System.Collections;
 using System.IO;
 using System.Text;
 /// <summary>
-/// T4M ±‡º≠∆˜÷˜»Îø⁄
+/// T4M ÁºñËæëÂô®‰∏ªÂÖ•Âè£
 /// </summary>
 public class T4MMainEditor : EditorWindow {
 	
@@ -135,7 +135,7 @@ public class T4MMainEditor : EditorWindow {
         }
         GUILayout.Label(AssetDatabase.LoadAssetAtPath<Texture>(T4MConfig.T4MEditorFolder + "Img/separator.png"));
 
-        #region ------------º§ªÓT4M------------------
+        #region ------------ÊøÄÊ¥ªT4M------------------
 
         if (CurrentSelect != null && T4MActived == "Activated")
         {
@@ -178,7 +178,7 @@ public class T4MMainEditor : EditorWindow {
                 {
                     if (mainObjTm.T4MMaterial != CurrentSelect.GetComponent<Renderer>().sharedMaterial)
                         mainObjTm.T4MMaterial = CurrentSelect.GetComponent<Renderer>().sharedMaterial;
-                    EditorUtility.SetSelectedWireframeHidden(CurrentSelect.GetComponent<Renderer>(), true);
+                    EditorUtility.SetSelectedRenderState(CurrentSelect.GetComponent<Renderer>(), EditorSelectedRenderState.Hidden);
                 }
                 else
                 {
@@ -192,8 +192,8 @@ public class T4MMainEditor : EditorWindow {
                         {
                             rendererPart[i].sharedMaterial = rendererPart[0].sharedMaterial;
                         }
-                        EditorUtility.SetSelectedWireframeHidden(rendererPart[i], true);
-                    }
+                            EditorUtility.SetSelectedRenderState(CurrentSelect.GetComponent<Renderer>(), EditorSelectedRenderState.Hidden);
+                        }
                 }
             }
             if (CurrentSelect && !mainObjTm)
@@ -254,13 +254,13 @@ public class T4MMainEditor : EditorWindow {
                     Renderer[] rendererPart = CurrentSelect.GetComponentsInChildren<Renderer>();
                     if (rendererPart.Length == 0)
                     {
-                        EditorUtility.SetSelectedWireframeHidden(CurrentSelect.GetComponent<Renderer>(), false);
+                        EditorUtility.SetSelectedRenderState(CurrentSelect.GetComponent<Renderer>(), EditorSelectedRenderState.Highlight);
                     }
                     else
                     {
                         for (int i = 0; i < rendererPart.Length; i++)
                         {
-                            EditorUtility.SetSelectedWireframeHidden(rendererPart[i], false);
+                            EditorUtility.SetSelectedRenderState(rendererPart[i] , EditorSelectedRenderState.Highlight);
                         }
                     }
                 }                
@@ -342,8 +342,9 @@ public class T4MMainEditor : EditorWindow {
 
         T4MMainObj mainObjTm = CurrentSelect.gameObject.GetComponent<T4MMainObj>();
         if (CurrentSelect && mainObjTm && mainObjTm.T4MMaterial){
-				EditorUtility.SetSelectedWireframeHidden(CurrentSelect.GetComponent<Renderer>(), true);
-				initMaster = false;
+                EditorUtility.SetSelectedRenderState(CurrentSelect.GetComponent<Renderer>() , EditorSelectedRenderState.Hidden);
+
+                initMaster = false;
 			
 				if (mainObjTm.T4MMaterial.HasProperty("_Splat0")){
 					T4MConfig.Layer1 =mainObjTm.T4MMaterial.GetTexture("_Splat0");

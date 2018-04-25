@@ -10,7 +10,7 @@ Shader "iT4MShaders/ShaderModel2/Toon/T4M 4 Textures Toon" {
 		
 	}
 		CGINCLUDE
-#pragma exclude_renderers xbox360 ps3
+		#pragma exclude_renderers xbox360 ps3
 		#include "UnityCG.cginc"
  
 		fixed3 _Color;
@@ -41,13 +41,13 @@ Shader "iT4MShaders/ShaderModel2/Toon/T4M 4 Textures Toon" {
 		v2f vert (appdata v)
 		{
 			v2f o;
-			o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
+			o.pos = UnityObjectToClipPos (v.vertex);
 			o.uv[0] = TRANSFORM_TEX (v.texcoord, _Splat0);
 			o.uv[1] = TRANSFORM_TEX (v.texcoord, _Splat1);
 			o.uv[2] = TRANSFORM_TEX (v.texcoord, _Splat2);
 			o.uv[3] = TRANSFORM_TEX (v.texcoord, _Splat3);
 			o.uv[4] = TRANSFORM_TEX (v.texcoord, _Control);
-			o.cubenormal = mul (UNITY_MATRIX_MV, float4(v.normal,0));
+			o.cubenormal = UnityObjectToViewPos(float4(v.normal,0));
 			return o;
 		}
  
